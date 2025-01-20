@@ -3,7 +3,6 @@ import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
 import axios from 'axios';
 import {IMovie} from '../interface/movie.interface';
 import {SwiperFlatList} from 'react-native-swiper-flatlist';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const MovieSwiper = () => {
   const [movieList, setMovieList] = useState<IMovie[]>([]);
@@ -30,7 +29,6 @@ const MovieSwiper = () => {
         horizontal={true} // row instead of column
         showPagination
         data={movieList}
-        paginationStyle={{top: '80%'}}
         renderItem={({item, index}) => (
           <View key={index} style={styles.movie}>
             <Image

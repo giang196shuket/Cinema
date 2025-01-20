@@ -18,13 +18,37 @@ import {
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import MoviePage from './pages/movie';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import UserPage from './pages/user';
-import Ionicons from 'react-native-vector-icons/Ionicons'; // Import vector icons
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import TheaterPage from './pages/theater';
+import HomePage from './pages/home';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
 
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
+const optionTab = (title: string) => {
+  return {
+    headerTransparent: true,
+    headerStyle: {
+      backgroundColor: 'transparent',
+      height: 50,
+    },
+    headerTintColor: 'transparent',
+    title: title,
+    headerLeft: () => (
+      <Ionicons
+        name="menu" // Menu (hamburger) icon
+        size={30}
+        color="#ffffff"
+        style={{marginLeft: 15}}
+      />
+    ),
+  };
+};
+
+
 function App(): React.JSX.Element {
   const isDarkMode = 'dark';
 
@@ -39,27 +63,19 @@ function App(): React.JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      {/* <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          
-          </View>
-       </ScrollView> */}
 
       <NavigationContainer>
         <Tab.Navigator
           screenOptions={({route}) => ({
             tabBarIcon: ({focused, color, size}) => {
-              let iconName;
+              let iconName: string = '';
 
               if (route.name === 'Home') {
-                iconName = focused ? 'home' : 'home-outline'; // Icon for Home tab
+                iconName = focused ? 'home' : 'home-outline';
               } else if (route.name === 'User') {
-                iconName = focused ? 'person' : 'person-outline'; // Icon for User tab
+                iconName = focused ? 'person' : 'person-outline';
+              } else if (route.name === 'Theater') {
+                iconName = focused ? 'film' : 'film-outline';
               }
 
               return <Ionicons name={iconName} size={size} color={color} />;
@@ -76,28 +92,17 @@ function App(): React.JSX.Element {
           })}>
           <Tab.Screen
             name="Home"
-            component={MoviePage}
-            options={{
-              headerTransparent: true,
-              headerStyle: {
-                backgroundColor: 'transparent',
-                height: 50,
-              },
-              headerTintColor: 'transparent',
-              title: 'Trang chủ',
-              headerLeft: () => (
-                <Ionicons
-                  name="menu" // Menu (hamburger) icon
-                  size={30}
-                  color="#ffffff"
-                  style={{marginLeft: 15}}
-                />
-              ),
-            }}
+            component={HomePage}
+            options={() => optionTab('Trang chủ')}
+          />
+          <Tab.Screen
+            name="Theater"
+            options={() => optionTab('Chi nhánh')}
+            component={TheaterPage}
           />
           <Tab.Screen
             name="User"
-            options={{title: 'Cá nhân'}}
+            options={() => optionTab('Cá nhân')}
             component={UserPage}
           />
         </Tab.Navigator>
@@ -105,11 +110,5 @@ function App(): React.JSX.Element {
     </SafeAreaView>
   );
 }
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+
 export default App;

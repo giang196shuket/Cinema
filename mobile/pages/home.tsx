@@ -10,7 +10,7 @@ import {
 import MovieSwiper from '../components/movieSwiper';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import MovieCarousel from '../components/movieCarousel';
-const MoviePage = () => {
+const HomePage = () => {
   return (
     <View
       style={{
@@ -19,18 +19,16 @@ const MoviePage = () => {
       }}>
       <View
         style={{
-          // flex: 1,
           height: '30%',
+          width:"100%"
         }}>
         <MovieSwiper />
       </View>
 
       <View
         style={{
-          // flex: 1,
           height: '70%',
-          paddingVertical:0,
-       
+          width:"100%",       
         }}>
         <MovieCarousel />
       </View>
@@ -38,4 +36,4 @@ const MoviePage = () => {
   );
 };
 
-export default MoviePage;
+export default HomePage;
