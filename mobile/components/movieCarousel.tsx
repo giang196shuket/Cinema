@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   containerCarousel: {
     height: '80%',
     flex: 1,
-    marginVertical:10
+    marginVertical:10,
   },
   //item
   itemContainer: {
