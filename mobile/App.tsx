@@ -19,16 +19,20 @@ import {
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import UserPage from './pages/user';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import TheaterPage from './pages/theater';
-import HomePage from './pages/home';
+import TheaterScreen from './screens/Theater';
+import HomeScreen from './screens/Home';
+import UserScreen from './screens/User';
+
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItem,
 } from '@react-navigation/drawer';
+import {createStackNavigator} from '@react-navigation/stack';
+import MovieDetailScreen from './screens/MovieDetail';
 
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 const optionTab =
@@ -44,7 +48,7 @@ const optionTab =
       title: title,
       headerLeft: () => (
         <Ionicons
-          name="menu" 
+          name="menu"
           size={30}
           color="#ffffff"
           style={{marginLeft: 15}}
@@ -62,7 +66,22 @@ const optionTab =
       ),
     };
   };
-const CustomTabNavigator = () => (
+
+const HomeStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name="HomeScreen"
+      component={HomeScreen}
+      options={{headerShown: false}}
+    />
+    <Stack.Screen
+      name="ProductDetail"
+      component={MovieDetailScreen}
+      options={{headerShown: false}}
+    />
+  </Stack.Navigator>
+);
+const TabNavigatorWrapper = () => (
   <Tab.Navigator
     screenOptions={({route}) => ({
       tabBarIcon: ({focused, color, size}) => {
@@ -90,33 +109,33 @@ const CustomTabNavigator = () => (
     })}>
     <Tab.Screen
       name="Home"
-      component={HomePage}
+      component={HomeScreen}
       options={optionTab('Trang chủ')}
     />
     <Tab.Screen
       name="Theater"
       options={optionTab('Chi nhánh')}
-      component={TheaterPage}
+      component={TheaterScreen}
     />
     <Tab.Screen
       name="User"
       options={optionTab('Cá nhân')}
-      component={UserPage}
+      component={UserScreen}
     />
   </Tab.Navigator>
 );
 
 // Custom drawer content
-const CustomDrawerContent = (props: any) => {
+const DrawerNavigatorWrapper = (props: any) => {
   return (
-    <DrawerContentScrollView {...props} >
+    <DrawerContentScrollView {...props}>
       <DrawerItem
         icon={({color, size}) => (
           <Ionicons name="home" size={size} color={'white'} />
         )}
         label="Trang chủ"
         labelStyle={styles.drawerText}
-        onPress={() => props.navigation.navigate('Drawer', { screen: 'Home' })}
+        onPress={() => props.navigation.navigate('Sidebar', {screen: 'Home'})}
       />
       <DrawerItem
         icon={({color, size}) => (
@@ -124,7 +143,9 @@ const CustomDrawerContent = (props: any) => {
         )}
         label="Chi nhánh"
         labelStyle={styles.drawerText}
-        onPress={() => props.navigation.navigate('Drawer', { screen: 'Theater' })}
+        onPress={() =>
+          props.navigation.navigate('Sidebar', {screen: 'Theater'})
+        }
       />
       <DrawerItem
         icon={({color, size}) => (
@@ -132,7 +153,7 @@ const CustomDrawerContent = (props: any) => {
         )}
         label="Cá nhân"
         labelStyle={styles.drawerText}
-        onPress={() => props.navigation.navigate('Drawer', { screen: 'User' })}
+        onPress={() => props.navigation.navigate('Sidebar', {screen: 'User'})}
       />
     </DrawerContentScrollView>
   );
@@ -155,22 +176,21 @@ function App(): React.JSX.Element {
 
       <NavigationContainer>
         <Drawer.Navigator
-          drawerContent={props => <CustomDrawerContent {...props} />}
+          drawerContent={props => <DrawerNavigatorWrapper {...props} />}
           screenOptions={{
             drawerStyle: {
               backgroundColor: '#333',
               width: 250,
-              borderEndEndRadius:0,
-              borderTopEndRadius: 0
+              borderEndEndRadius: 0,
+              borderTopEndRadius: 0,
             },
             drawerLabelStyle: {
               color: '#fff',
             },
-
           }}>
           <Drawer.Screen
-            name="Drawer"
-            component={CustomTabNavigator}
+            name="Sidebar"
+            component={TabNavigatorWrapper}
             options={{headerShown: false}}
           />
         </Drawer.Navigator>

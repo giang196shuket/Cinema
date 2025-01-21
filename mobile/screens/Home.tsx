@@ -7,10 +7,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import MovieSwiper from '../components/movieSwiper';
+import MovieSwiper from '../components/MovieSwiper';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import MovieCarousel from '../components/movieCarousel';
-const HomePage = () => {
+import MovieCarousel from '../components/MovieCarousel';
+const HomeScreen = ({navigation}: {navigation: any}) => {
   return (
     <View
       style={{
@@ -20,7 +20,7 @@ const HomePage = () => {
       <View
         style={{
           height: '30%',
-          width:"100%"
+          width: '100%',
         }}>
         <MovieSwiper />
       </View>
@@ -28,12 +28,12 @@ const HomePage = () => {
       <View
         style={{
           height: '70%',
-          width:"100%",       
+          width: '100%',
         }}>
-        <MovieCarousel />
+        <MovieCarousel navigation={navigation} />
       </View>
     </View>
   );
 };
 
-export default HomePage;
+export default HomeScreen;

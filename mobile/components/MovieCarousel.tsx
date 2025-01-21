@@ -2,6 +2,7 @@ import axios from 'axios';
 import * as React from 'react';
 import {
   Dimensions,
+  Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -20,7 +21,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
-function MovieCarousel() {
+function MovieCarousel({navigation}: {navigation: any}) {
   const ref = React.useRef<ICarouselInstance>(null);
   const [movieList, setMovieList] = React.useState<IMovie[]>([]);
   const [isShowing, setIsShowing] = React.useState(true);
@@ -80,7 +81,15 @@ function MovieCarousel() {
             return (
               <View style={styles.itemContainer} key={index}>
                 <View style={[styles.imageContainer]}>
-                  <Image source={{uri: item.movieImage}} style={styles.image} />
+                  <Pressable
+                    onPress={() =>
+                      navigation.navigate('MovieDetail', {movie: item})
+                    }>
+                    <Image
+                      source={{uri: item.movieImage}}
+                      style={styles.image}
+                    />
+                  </Pressable>
                 </View>
               </View>
             );
@@ -131,7 +140,7 @@ const styles = StyleSheet.create({
   containerCarousel: {
     height: '80%',
     flex: 1,
-    marginVertical:10,
+    marginVertical: 10,
   },
   //item
   itemContainer: {
@@ -164,7 +173,7 @@ const styles = StyleSheet.create({
     width: '50%',
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop:10,
+    marginTop: 10,
     paddingVertical: 10,
     gap: 10,
     borderRadius: 5,
