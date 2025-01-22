@@ -1,0 +1,21 @@
+INSERT INTO `movie` VALUES (1,
+'KANG MAK: TÌNH NGƯỜI DUYÊN MA: TÁI HỢP',
+'Remake từ bộ phim hài – kinh dị ảnh nổi tiếng của Thái Lan là Pee Mak – Tình Người Duyên Ma. Kang Mak kể lại hành trình trở về nhà từ chiến trường của anh lính tên Makmur. Tuy nhiên, Makmur phát hiện người vợ Sari của anh đã chết và trở thành một hồn ma.',
+'https://youtu.be/5BiWRqBXCrY',
+'https://bhdstar.vn/wp-content/uploads/2024/12/referenceSchemeHeadOfficeallowPlaceHoldertrueheight700ldapp-28.jpg',
+'https://bhdstar.vn/wp-content/uploads/2024/12/referenceSchemeHeadOfficeallowPlaceHoldertrueheight1069ldapp-21.jpg',
+122,
+'2025-01-17'),(2,
+'404 RUN RUN: CHẠY NGAY ĐI'
+,'Nakrob, một kẻ lừa đảo bất động sản trẻ tuổi, phát hiện ra một khách sạn trên sườn đồi bị bỏ hoang gần bãi biển. Nhìn thấy cơ hội, anh ta quyết định biến nó thành một vụ lừa đảo khách sạn sang trọng.',
+'https://youtu.be/jS6TZkBB0lY','https://bhdstar.vn/wp-content/uploads/2024/12/referenceSchemeHeadOfficeallowPlaceHoldertrueheight700ldapp-24.jpg',
+'https://bhdstar.vn/wp-content/uploads/2024/12/referenceSchemeHeadOfficeallowPlaceHoldertrueheight1069ldapp-14.jpg',
+122,
+'2025-01-16'),
+(3,
+'WOODWALKERS: NGƯỜI HÓA THÚ',
+'Carag, một chú báo sư tử có khả năng biến hình được nuôi trong tự nhiên gia nhập Clearwater High – ngôi trường dành cho Woodwalker. Cùng với những người bạn Holly (sóc) và Brandon (bò rừng), anh khám phá những bí ẩn và nguy hiểm của thế giới Woodwalker.'
+,'https://youtu.be/Z_epe-emxkI','https://bhdstar.vn/wp-content/uploads/2025/01/referenceSchemeHeadOfficeallowPlaceHoldertrueheight700ldapp-4.jpg',
+'https://bhdstar.vn/wp-content/uploads/2025/01/referenceSchemeHeadOfficeallowPlaceHoldertrueheight1069ldapp-4.jpg',
+122,
+'2025-01-17');

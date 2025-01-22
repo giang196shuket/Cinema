@@ -17,7 +17,11 @@ import {
   View,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {getFocusedRouteNameFromRoute, NavigationContainer, useNavigation} from '@react-navigation/native';
+import {
+  getFocusedRouteNameFromRoute,
+  NavigationContainer,
+  useNavigation,
+} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import TheaterScreen from './screens/Theater';
@@ -35,96 +39,114 @@ import MovieDetailScreen from './screens/MovieDetail';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
-const optionTab =
-  (title: string) =>
-  (props: any) => {
-    return {
-      headerTransparent: true,
-      headerStyle: {
-        backgroundColor: 'transparent',
-        height: 50,
-      },
-      headerTintColor: 'transparent',
-      title: title,
-      headerLeft: () => (
-        <Ionicons
-          name="menu"
-          size={30}
-          color="#ffffff"
-          style={{marginLeft: 15}}
-          onPress={() => props.navigation.openDrawer()}
-        />
-      ),
-      headerRight: () => (
-        <Ionicons
-          name="notifications"
-          size={30}
-          color="#ffffff"
-          style={{marginRight: 15}}
-          onPress={() => props.navigation.openDrawer()}
-        />
-      ),
-    };
+const optionTab = (title: string) => (props: any) => {
+  return {
+    headerTransparent: true,
+    headerStyle: {
+      backgroundColor: 'transparent',
+      height: 50,
+    },
+    headerTintColor: 'transparent',
+    title: title,
+    headerLeft: () => (
+      <Ionicons
+        name="menu"
+        size={30}
+        color="#ffffff"
+        style={{marginLeft: 15}}
+        onPress={() => props.navigation.openDrawer()}
+      />
+    ),
+    headerRight: () => (
+      <Ionicons
+        name="notifications-outline"
+        size={25}
+        color="#ffffff"
+        style={{marginRight: 15}}
+        onPress={() => props.navigation.openDrawer()}
+      />
+    ),
   };
+};
 
-const HomeStack = () => (
-  <Stack.Navigator initialRouteName="HomeScreen">
+const StackNavigatorWrapper = () => (
+  <Stack.Navigator>
     <Stack.Screen
       name="HomeScreen"
-      component={HomeScreen}
+      component={TabNavigatorWrapper}
       options={{headerShown: false}}
     />
     <Stack.Screen
       name="MovieDetailScreen"
       component={MovieDetailScreen}
-      options={{headerShown: false,}}
+      options={({ navigation }) => ({
+        headerTransparent: true,
+        headerStyle: {
+          backgroundColor: 'transparent',
+          height: 75,
+        },
+        headerTintColor: 'transparent',
+        title: "",
+        headerLeft: () => (
+          <Ionicons 
+          name="chevron-back-circle" 
+          size={30} 
+          color="white" 
+          style={{ marginLeft: 15, marginTop: 25 }} 
+          onPress={() => navigation.goBack()} 
+        />
+        ),
+      })}
     />
   </Stack.Navigator>
 );
-const TabNavigatorWrapper = ({ navigation, route }:{ navigation:any, route:any }) => {
-  const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
-  console.log("rrouteName", routeName);
+const TabNavigatorWrapper = ({
+  navigation,
+  route,
+}: {
+  navigation: any;
+  route: any;
+}) => {
+  return (
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName: string = '';
 
-  return (<Tab.Navigator
-    screenOptions={({route}) => ({
-      tabBarIcon: ({focused, color, size}) => {
-        let iconName: string = '';
+          if (route.name === 'Home') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'User') {
+            iconName = focused ? 'person' : 'person-outline';
+          } else if (route.name === 'Theater') {
+            iconName = focused ? 'film' : 'film-outline';
+          }
 
-        if (route.name === 'Home') {
-          iconName = focused ? 'home' : 'home-outline';
-        } else if (route.name === 'User') {
-          iconName = focused ? 'person' : 'person-outline';
-        } else if (route.name === 'Theater') {
-          iconName = focused ? 'film' : 'film-outline';
-        }
-
-        return <Ionicons name={iconName} size={size} color={color} />;
-      },
-      tabBarStyle: route.name === 'MovieDetailScreen' 
-      ? { display: 'none' }  // hide MovieDetailScreen
-      : { backgroundColor: '#222', height: 70, paddingTop: 5 },
-      tabBarActiveTintColor: 'green',
-      tabBarLabelStyle: {
-        fontSize: 14,
-      },
-    })}>
-    <Tab.Screen
-      name="Home"
-      component={HomeStack}
-      options={optionTab('Trang chủ')}
-    />
-    <Tab.Screen
-      name="Theater"
-      options={optionTab('Chi nhánh')}
-      component={TheaterScreen}
-    />
-    <Tab.Screen
-      name="User"
-      options={optionTab('Cá nhân')}
-      component={UserScreen}
-    />
-  </Tab.Navigator>
-)}
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarStyle: {backgroundColor: '#222', height: 70, paddingTop: 5},
+        tabBarActiveTintColor: 'green',
+        tabBarLabelStyle: {
+          fontSize: 14,
+        },
+      })}>
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={optionTab('Trang chủ')}
+      />
+      <Tab.Screen
+        name="Theater"
+        options={optionTab('Chi nhánh')}
+        component={TheaterScreen}
+      />
+      <Tab.Screen
+        name="User"
+        options={optionTab('Cá nhân')}
+        component={UserScreen}
+      />
+    </Tab.Navigator>
+  );
+};
 // Custom drawer content
 const DrawerNavigatorWrapper = (props: any) => {
   return (
@@ -190,7 +212,7 @@ function App(): React.JSX.Element {
           }}>
           <Drawer.Screen
             name="Sidebar"
-            component={TabNavigatorWrapper}
+            component={StackNavigatorWrapper}
             options={{headerShown: false}}
           />
         </Drawer.Navigator>

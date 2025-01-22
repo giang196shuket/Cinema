@@ -5,6 +5,7 @@ export interface IMovie {
    movieTrailer: string;
    movieImage: string;
    movieThumbnail: string;
+   movieDuration: number;
    movieStartDate: Date;
 }
 

@@ -80,23 +80,24 @@ function MovieCarousel({navigation}: {navigation: any}) {
           renderItem={({item, index}) => {
             return (
               <View style={styles.itemContainer} key={index}>
-                <View style={[styles.imageContainer]}>
+                <TouchableOpacity
+                  style={[styles.imageContainer]}
+                  onPress={() =>
+                    navigation.navigate('MovieDetailScreen', {
+                      movie: movieCurrent,
+                    })
+                  }>
                   <Image source={{uri: item.movieImage}} style={styles.image} />
-                </View>
+                </TouchableOpacity>
               </View>
             );
           }}
         />
       </View>
       <View style={styles.containerTitle}>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('MovieDetailScreen', {movie: movieCurrent})
-          }>
-          <Text style={styles.title}>
-            {movieCurrent && movieCurrent?.movieName}
-          </Text>
-        </TouchableOpacity>
+        <Text style={styles.title}>
+          {movieCurrent && movieCurrent?.movieName}
+        </Text>
 
         <TouchableOpacity style={styles.orderBtn}>
           <Ionicons name="ticket" size={20} color="#ffffff" />

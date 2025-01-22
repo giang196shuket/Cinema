@@ -50,7 +50,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
          </header>
 
          <div className="flex">
-            <aside className="flex w-72 flex-col space-y-2  bg-[#1D232C] text-white p-2" style={{ height: "100vh", display: asideOpen ? "block" : "none" }}>
+            <aside className="flex w-72 flex-col space-y-2  bg-[#1D232C] text-white p-2" style={{ height: "100vh", display: asideOpen ? "block" : "none", transition:"2s" }}>
                <a href="#" className="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-black">
                   <span className="text-2xl">
                      <i className="bx bx-home"></i>

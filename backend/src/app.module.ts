@@ -3,6 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MovieModule } from './modules/movide.module';
+import { CategoryModule } from './modules/category.module';
+import { config } from 'process';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -11,12 +13,16 @@ import { MovieModule } from './modules/movide.module';
       port: 3306,
       username: 'root',
       password: 'giang19062001',
-      // password: '123456',
       database: 'cinema',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      migrations: ['src/migrations/**/*.{ts,js}'],
+     
+      // synchronize: true,
+      // autoLoadEntities: true,
+      logging: true,  
     }),
-    MovieModule
+    MovieModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
