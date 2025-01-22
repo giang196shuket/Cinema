@@ -81,15 +81,7 @@ function MovieCarousel({navigation}: {navigation: any}) {
             return (
               <View style={styles.itemContainer} key={index}>
                 <View style={[styles.imageContainer]}>
-                  <Pressable
-                    onPress={() =>
-                      navigation.navigate('MovieDetail', {movie: item})
-                    }>
-                    <Image
-                      source={{uri: item.movieImage}}
-                      style={styles.image}
-                    />
-                  </Pressable>
+                  <Image source={{uri: item.movieImage}} style={styles.image} />
                 </View>
               </View>
             );
@@ -97,9 +89,15 @@ function MovieCarousel({navigation}: {navigation: any}) {
         />
       </View>
       <View style={styles.containerTitle}>
-        <Text style={styles.title}>
-          {movieCurrent && movieCurrent?.movieName}
-        </Text>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('MovieDetailScreen', {movie: movieCurrent})
+          }>
+          <Text style={styles.title}>
+            {movieCurrent && movieCurrent?.movieName}
+          </Text>
+        </TouchableOpacity>
+
         <TouchableOpacity style={styles.orderBtn}>
           <Ionicons name="ticket" size={20} color="#ffffff" />
           <Text style={styles.text}> Đặt vé</Text>

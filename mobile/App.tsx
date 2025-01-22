@@ -17,7 +17,7 @@ import {
   View,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {getFocusedRouteNameFromRoute, NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import TheaterScreen from './screens/Theater';
@@ -37,7 +37,7 @@ const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 const optionTab =
   (title: string) =>
-  ({navigation}: any) => {
+  (props: any) => {
     return {
       headerTransparent: true,
       headerStyle: {
@@ -52,7 +52,7 @@ const optionTab =
           size={30}
           color="#ffffff"
           style={{marginLeft: 15}}
-          onPress={() => navigation.openDrawer()}
+          onPress={() => props.navigation.openDrawer()}
         />
       ),
       headerRight: () => (
@@ -61,28 +61,31 @@ const optionTab =
           size={30}
           color="#ffffff"
           style={{marginRight: 15}}
-          onPress={() => navigation.openDrawer()}
+          onPress={() => props.navigation.openDrawer()}
         />
       ),
     };
   };
 
 const HomeStack = () => (
-  <Stack.Navigator>
+  <Stack.Navigator initialRouteName="HomeScreen">
     <Stack.Screen
       name="HomeScreen"
       component={HomeScreen}
       options={{headerShown: false}}
     />
     <Stack.Screen
-      name="ProductDetail"
+      name="MovieDetailScreen"
       component={MovieDetailScreen}
-      options={{headerShown: false}}
+      options={{headerShown: false,}}
     />
   </Stack.Navigator>
 );
-const TabNavigatorWrapper = () => (
-  <Tab.Navigator
+const TabNavigatorWrapper = ({ navigation, route }:{ navigation:any, route:any }) => {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
+  console.log("rrouteName", routeName);
+
+  return (<Tab.Navigator
     screenOptions={({route}) => ({
       tabBarIcon: ({focused, color, size}) => {
         let iconName: string = '';
@@ -97,11 +100,9 @@ const TabNavigatorWrapper = () => (
 
         return <Ionicons name={iconName} size={size} color={color} />;
       },
-      tabBarStyle: {
-        backgroundColor: '#222',
-        height: 70,
-        paddingTop: 5,
-      },
+      tabBarStyle: route.name === 'MovieDetailScreen' 
+      ? { display: 'none' }  // hide MovieDetailScreen
+      : { backgroundColor: '#222', height: 70, paddingTop: 5 },
       tabBarActiveTintColor: 'green',
       tabBarLabelStyle: {
         fontSize: 14,
@@ -109,7 +110,7 @@ const TabNavigatorWrapper = () => (
     })}>
     <Tab.Screen
       name="Home"
-      component={HomeScreen}
+      component={HomeStack}
       options={optionTab('Trang chủ')}
     />
     <Tab.Screen
@@ -123,8 +124,7 @@ const TabNavigatorWrapper = () => (
       component={UserScreen}
     />
   </Tab.Navigator>
-);
-
+)}
 // Custom drawer content
 const DrawerNavigatorWrapper = (props: any) => {
   return (

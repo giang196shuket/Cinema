@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { IMovie } from "@/interface/movie.interface";
-import Sidebar from "@/components/sidebar";
+import Sidebar from "@/components/Sidebar";
 
 export default function Home() {
     const [movieList, setMovieList] = useState<IMovie[]>([]);

@@ -3,6 +3,7 @@
 mobile:
 npx @react-native-community/cli init
 npx react-native start
+npx react-native run-android 
 //--reset-cache
 npm cache clean --force
 

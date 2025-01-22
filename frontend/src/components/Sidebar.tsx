@@ -16,17 +16,18 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                <button type="button" className="text-3xl " onClick={() => setAsideOpen(!asideOpen)}>
                   <img   src={"/static/images/menu.png"} alt="" className="w-8"/>
                </button>
+                  {/* <img src={"https://static.vecteezy.com/system/resources/previews/005/188/413/non_2x/cinema-logo-template-isolated-on-white-background-vector.jpg"}  className="w-12"/> */}
                {/* <div className="text-white">Logo</div> */}
             </div>
 
             <div>
                <button type="button" onClick={() => setProfileOpen(!profileOpen)} className="h-9 w-9 overflow-hidden rounded-full">
-                  <img src="https://plchldr.co/i/40x40?bg=111111" alt="plchldr.co" />
+                  <img src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg" alt="plchldr.co" />
                </button>
 
                <div className="absolute right-2 mt-1 w-48 divide-y rounded-md border bg-white shadow-md" style={{ display: profileOpen ? "block" : "none" }}>
                   <div className="flex items-center space-x-2 p-2">
-                     <img src="https://plchldr.co/i/40x40?bg=111111" alt="plchldr.co" className="h-9 w-9 rounded-full" />
+                     <img src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg" alt="plchldr.co" className="h-9 w-9 rounded-full" />
                      <div className="font-medium">Admin</div>
                   </div>
 
