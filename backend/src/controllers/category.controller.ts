@@ -1,10 +1,8 @@
 import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateCategoryDTO, UpdateCategoryDTO } from 'src/dto/category.dto';
-import { UpdateMovieDTO, CreateMovieDTO } from 'src/dto/movie.dto';
-import { Category } from 'src/entities/category.entity';
-import { CategoryService } from 'src/services/category.service';
-import { MovieService } from 'src/services/movie.service';
+import { CategoryService } from '../services/category.service';
+import { Category } from '../entities/category.entity';
+import { CreateCategoryDTO, UpdateCategoryDTO } from '../dto/category.dto';
 
 @ApiTags('Category')
 @Controller('Category')
@@ -24,8 +22,8 @@ export class CategoryController {
   }
 
   @Post()
-  create(@Body() Category: CreateCategoryDTO) {
-    return this.categoryService.create(Category);
+  create(@Body() category: CreateCategoryDTO) {
+    return this.categoryService.create(category);
   }
 
   @Put(':id')

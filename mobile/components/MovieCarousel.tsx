@@ -83,7 +83,7 @@ function MovieCarousel({navigation}: {navigation: any}) {
                 <TouchableOpacity
                   style={[styles.imageContainer]}
                   onPress={() =>
-                    navigation.navigate('MovieDetailScreen', {
+                    navigation.navigate('MovieDetail', {
                       movie: movieCurrent,
                     })
                   }>

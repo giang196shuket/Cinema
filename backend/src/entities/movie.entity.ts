@@ -6,7 +6,6 @@ import {
   UpdateDateColumn,
   ManyToMany,
   JoinTable,
-  OneToMany,
 } from 'typeorm';
 import { Category } from './category.entity';
 
@@ -39,7 +38,7 @@ export class Movie {
   @Column({ default: true, nullable: true })
   movieActive: boolean;
 
-  @ManyToMany(() => Category, { cascade: true, nullable: false})
+  @ManyToMany(() => Category, { cascade: true, nullable: false })
   @JoinTable({
     name: 'movie_category',
     joinColumn: {
@@ -51,7 +50,7 @@ export class Movie {
       referencedColumnName: 'categoryId',
     },
   })
-  categories: Category[];
+  categories?: Category[];
 
   @CreateDateColumn({ type: 'timestamp', nullable: true })
   createdAt?: Date;

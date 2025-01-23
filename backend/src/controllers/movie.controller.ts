@@ -1,19 +1,25 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { UpdateMovieDTO, CreateMovieDTO } from 'src/dto/movie.dto';
-import { Movie } from 'src/entities/movie.entity';
-import { MovieService } from 'src/services/movie.service';
+import { MovieService } from '../services/movie.service';
+import { Movie } from '../entities/movie.entity';
+import { CreateMovieDTO, UpdateMovieDTO } from '../dto/movie.dto';
 
 @ApiTags('Movie')
 @Controller('Movie')
 export class MovieController {
-  constructor(private readonly movieService: MovieService) {
-
-  }
+  constructor(private readonly movieService: MovieService) {}
 
   @Get()
   findAll(): Promise<Movie[]> {
-    return this.movieService.findAll()
+    return this.movieService.findAll();
   }
 
   @Get(':id')
@@ -22,9 +28,8 @@ export class MovieController {
   }
 
   @Post()
-  create(@Body() Movie: CreateMovieDTO) {
-    console.log("Movie", Movie);
-    return this.movieService.create(Movie);
+  create(@Body() movie: CreateMovieDTO) {
+    return this.movieService.create(movie);
   }
 
   @Put(':id')
@@ -37,4 +42,3 @@ export class MovieController {
     return this.movieService.delete(id);
   }
 }
-

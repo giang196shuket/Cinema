@@ -7,5 +7,6 @@ export interface IMovie {
    movieThumbnail: string;
    movieDuration: number;
    movieStartDate: Date;
+   movieActive: boolean;
 }
 

@@ -1,35 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateCategoryDTO, UpdateCategoryDTO } from 'src/dto/category.dto';
-import { CreateMovieDTO, UpdateMovieDTO } from 'src/dto/movie.dto';
-import { Category } from 'src/entities/category.entity';
-import { Movie } from 'src/entities/movie.entity';
-import { Repository } from 'typeorm';
+import { CreateCategoryDTO, UpdateCategoryDTO } from '../dto/category.dto';
+import { Category } from '../entities/category.entity';
 import { UpdateResult, DeleteResult } from 'typeorm';
+import { CategoryRepository } from '../repository/category.repository';
 
 @Injectable()
 export class CategoryService {
   constructor(
-    @InjectRepository(Category) private categoryRepo: Repository<Category>,
+    @InjectRepository(CategoryRepository)
+    private readonly categoryRepository: CategoryRepository, // Injecting the custom CategoryRepository
   ) {}
 
   async findAll(): Promise<Category[]> {
-    return await this.categoryRepo.find();
+    return this.categoryRepository.find();
   }
 
   async findOne(categoryId: number): Promise<Category> {
-    return await this.categoryRepo.findOneBy({ categoryId: categoryId });
+    return this.categoryRepository.findOneBy({ categoryId: categoryId });
   }
 
-  async create (category: CreateCategoryDTO): Promise<Category> {
-    return await this.categoryRepo.save(category);
+  async create(category: CreateCategoryDTO): Promise<Category> {
+    return this.categoryRepository.save(category);
   }
 
-  async update(categoryId: number, category: UpdateCategoryDTO): Promise<UpdateResult> {
-    return await this.categoryRepo.update(categoryId, category);
+  async update(
+    categoryId: number,
+    category: UpdateCategoryDTO,
+  ): Promise<UpdateResult> {
+    return this.categoryRepository.update(categoryId, category);
   }
 
   async delete(categoryId: number): Promise<DeleteResult> {
-    return await this.categoryRepo.delete(categoryId);
+    return this.categoryRepository.delete(categoryId);
   }
 }

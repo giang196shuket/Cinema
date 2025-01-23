@@ -6,21 +6,23 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Movie } from './movie.entity';
 
 @Entity()
-export class Category {
+export class Theater {
   @PrimaryGeneratedColumn()
-  categoryId: number;
+  theaterId: number;
 
   @Column()
-  categoryName: string;
+  theaterName: string;
+
+  @Column()
+  theaterAddress: string;
+
+  @Column()
+  theaterImage: string;
 
   @Column({ default: true, nullable: true })
-  categoryActive: boolean;
-
-  @ManyToMany(() => Movie, (movie) => movie.categories)
-  movies?: Movie[];
+  theaterActive: boolean;
 
   @CreateDateColumn({ type: 'timestamp', nullable: true })
   createdAt?: Date;

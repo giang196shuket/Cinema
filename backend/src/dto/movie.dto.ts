@@ -1,12 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { ArrayNotEmpty, IsArray, ValidateNested } from 'class-validator';
-import { Category } from 'src/entities/category.entity';
 
 export class CreateMovieDTO {
-  @ApiProperty()
-  movieId: number;
-
   @ApiProperty()
   movieName: string;
 
@@ -21,19 +17,19 @@ export class CreateMovieDTO {
 
   @ApiProperty()
   movieThumbnail: string;
-  
+
   @ApiProperty()
   movieDuration: number;
 
-  @ApiProperty({format:"date"})
+  @ApiProperty({ format: 'date' })
   movieStartDate: Date;
 
   @ApiProperty({ isArray: true, nullable: false, type: () => Number })
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => Number) 
+  @Type(() => Number)
   @ArrayNotEmpty()
-  categories: Category[]
+  categoryIds: number[];
 }
 export class UpdateMovieDTO {
   @ApiProperty()
@@ -50,21 +46,20 @@ export class UpdateMovieDTO {
 
   @ApiProperty()
   movieThumbnail: string;
-  
+
   @ApiProperty()
   movieDuration: number;
 
-  @ApiProperty({format:"date"})
+  @ApiProperty({ format: 'date' })
   movieStartDate: Date;
 
   @ApiProperty()
-  boolean: boolean;
+  movieActive: boolean;
 
-  @ApiProperty({ isArray: true, nullable: false, type: () => Category })
+  @ApiProperty({ isArray: true, nullable: false, type: () => Number })
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => Category) 
+  @Type(() => Number)
   @ArrayNotEmpty()
-  categories: Category[]
+  categoryIds: number[];
 }
-

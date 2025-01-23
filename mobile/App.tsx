@@ -1,32 +1,16 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React, {useEffect, useState} from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import React from 'react';
+import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {
-  getFocusedRouteNameFromRoute,
-  NavigationContainer,
-  useNavigation,
-} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import TheaterScreen from './screens/Theater';
 import HomeScreen from './screens/Home';
 import UserScreen from './screens/User';
+import MovieDetailScreen from './screens/MovieDetail';
+import MovieListScreen from './screens/MovieList';
 
 import {
   createDrawerNavigator,
@@ -34,94 +18,61 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
-import MovieDetailScreen from './screens/MovieDetail';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
-const optionTab = (title: string) => (props: any) => {
-  return {
-    headerTransparent: true,
-    headerStyle: {
-      backgroundColor: 'transparent',
-      height: 50,
-    },
-    headerTintColor: 'transparent',
-    title: title,
-    headerLeft: () => (
-      <Ionicons
-        name="menu"
-        size={30}
-        color="#ffffff"
-        style={{marginLeft: 15}}
-        onPress={() => props.navigation.openDrawer()}
-      />
-    ),
-    headerRight: () => (
-      <Ionicons
-        name="notifications-outline"
-        size={25}
-        color="#ffffff"
-        style={{marginRight: 15}}
-        onPress={() => props.navigation.openDrawer()}
-      />
-    ),
-  };
-};
 
-const StackNavigatorWrapper = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      name="HomeScreen"
-      component={TabNavigatorWrapper}
-      options={{headerShown: false}}
+// Header options for tabs
+const optionTab = (title: string) => (props: any) => ({
+  headerTransparent: true,
+  headerStyle: {
+    backgroundColor: 'transparent',
+    height: 50,
+  },
+  headerTintColor: 'transparent',
+  title: title,
+  headerLeft: () => (
+    <Ionicons
+      name="menu"
+      size={30}
+      color="#ffffff"
+      style={{marginLeft: 15}}
+      onPress={() => props.navigation.openDrawer()}
     />
-    <Stack.Screen
-      name="MovieDetailScreen"
-      component={MovieDetailScreen}
-      options={({ navigation }) => ({
-        headerTransparent: true,
-        headerStyle: {
-          backgroundColor: 'transparent',
-          height: 75,
-        },
-        headerTintColor: 'transparent',
-        title: "",
-        headerLeft: () => (
-          <Ionicons 
-          name="chevron-back-circle" 
-          size={30} 
-          color="white" 
-          style={{ marginLeft: 15, marginTop: 25 }} 
-          onPress={() => navigation.goBack()} 
-        />
-        ),
-      })}
+  ),
+  headerRight: () => (
+    <Ionicons
+      name="notifications-outline"
+      size={25}
+      color="#ffffff"
+      style={{marginRight: 15}}
+      onPress={() => props.navigation.openDrawer()}
     />
-  </Stack.Navigator>
-);
-const TabNavigatorWrapper = ({
-  navigation,
-  route,
-}: {
-  navigation: any;
-  route: any;
-}) => {
+  ),
+});
+
+// Tab Navigator
+const TabNavigatorWrapper = () => {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
-          let iconName: string = '';
+          let iconName = '';
 
           if (route.name === 'Home') {
             iconName = focused ? 'home' : 'home-outline';
+            return <Ionicons name={iconName} size={size} color={color} />;
           } else if (route.name === 'User') {
             iconName = focused ? 'person' : 'person-outline';
+            return <Ionicons name={iconName} size={size} color={color} />;
           } else if (route.name === 'Theater') {
-            iconName = focused ? 'film' : 'film-outline';
+            iconName = focused ? 'theater' : 'theater';
+            return <MaterialIcons name={iconName} size={size} color={color} />;
+          } else if (route.name === 'Movies') {
+            iconName = focused ? 'movie-roll' : 'movie-roll';
+            return <MaterialIcons name={iconName} size={size} color={color} />;
           }
-
-          return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarStyle: {backgroundColor: '#222', height: 70, paddingTop: 5},
         tabBarActiveTintColor: 'green',
@@ -136,52 +87,98 @@ const TabNavigatorWrapper = ({
       />
       <Tab.Screen
         name="Theater"
-        options={optionTab('Chi nhánh')}
         component={TheaterScreen}
+        options={optionTab('Rạp chiếu')}
+      />
+      <Tab.Screen
+        name="Movies"
+        component={MovieListScreen}
+        options={optionTab('Lịch chiếu')}
       />
       <Tab.Screen
         name="User"
-        options={optionTab('Cá nhân')}
         component={UserScreen}
+        options={optionTab('Cá nhân')}
       />
     </Tab.Navigator>
   );
 };
-// Custom drawer content
+
+// Stack Navigator
+const StackNavigatorWrapper = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name="Tabs"
+      component={TabNavigatorWrapper}
+      options={{headerShown: false}}
+    />
+    <Stack.Screen
+      name="MovieDetail"
+      component={MovieDetailScreen}
+      options={({navigation}) => ({
+        headerTransparent: true,
+        headerStyle: {
+          backgroundColor: 'transparent',
+          height: 75,
+        },
+        headerTintColor: 'transparent',
+        title: '',
+        headerLeft: () => (
+          <Ionicons
+            name="chevron-back-circle"
+            size={30}
+            color="white"
+            style={{marginLeft: 15, marginTop: 25}}
+            onPress={() => navigation.goBack()}
+          />
+        ),
+      })}
+    />
+  </Stack.Navigator>
+);
+
+// Custom Drawer Content
 const DrawerNavigatorWrapper = (props: any) => {
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItem
-        icon={({color, size}) => (
+        icon={({ size }) => (
           <Ionicons name="home" size={size} color={'white'} />
         )}
         label="Trang chủ"
         labelStyle={styles.drawerText}
-        onPress={() => props.navigation.navigate('Sidebar', {screen: 'Home'})}
+        onPress={() => props.navigation.navigate('Drawer', { screen: 'Tabs', params: { screen: 'Home' } })} // Access Tabs through Drawer
       />
       <DrawerItem
-        icon={({color, size}) => (
-          <Ionicons name="film" size={size} color={'white'} />
+        icon={({ size }) => (
+          <MaterialIcons name="theater" size={size} color={'white'} />
         )}
-        label="Chi nhánh"
+        label="Rạp chiếu"
         labelStyle={styles.drawerText}
-        onPress={() =>
-          props.navigation.navigate('Sidebar', {screen: 'Theater'})
-        }
+        onPress={() => props.navigation.navigate('Drawer', { screen: 'Tabs', params: { screen: 'Theater' } })} // Navigate to Theater in Tabs
       />
       <DrawerItem
-        icon={({color, size}) => (
+        icon={({ size }) => (
+          <MaterialIcons name="movie-roll" size={size} color={'white'} />
+        )}
+        label="Lịch chiếu"
+        labelStyle={styles.drawerText}
+        onPress={() => props.navigation.navigate('Drawer', { screen: 'Tabs', params: { screen: 'Movies' } })} // Navigate to Movies in Tabs
+      />
+      <DrawerItem
+        icon={({ size }) => (
           <Ionicons name="person" size={size} color={'white'} />
         )}
         label="Cá nhân"
         labelStyle={styles.drawerText}
-        onPress={() => props.navigation.navigate('Sidebar', {screen: 'User'})}
+        onPress={() => props.navigation.navigate('Drawer', { screen: 'Tabs', params: { screen: 'User' } })} // Navigate to User in Tabs
       />
     </DrawerContentScrollView>
   );
 };
 
-function App(): React.JSX.Element {
+
+function App() {
   const isDarkMode = 'dark';
 
   const backgroundStyle = {
@@ -211,7 +208,7 @@ function App(): React.JSX.Element {
             },
           }}>
           <Drawer.Screen
-            name="Sidebar"
+            name="Drawer"
             component={StackNavigatorWrapper}
             options={{headerShown: false}}
           />

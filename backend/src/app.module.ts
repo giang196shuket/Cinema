@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MovieModule } from './modules/movide.module';
 import { CategoryModule } from './modules/category.module';
-import { config } from 'process';
+import { TheaterModule } from './modules/theater.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -16,13 +16,13 @@ import { config } from 'process';
       database: 'cinema',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       migrations: ['src/migrations/**/*.{ts,js}'],
-     
-      // synchronize: true,
+      synchronize: true,
       // autoLoadEntities: true,
-      logging: true,  
+      logging: true,
     }),
     MovieModule,
     CategoryModule,
+    TheaterModule
   ],
   controllers: [AppController],
   providers: [AppService],
