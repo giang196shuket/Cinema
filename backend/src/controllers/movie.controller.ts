@@ -38,7 +38,7 @@ export class MovieController {
   }
 
   @Delete(':id')
-  deleteUser(@Param('id') id: number) {
+  delete(@Param('id') id: number) {
     return this.movieService.delete(id);
   }
 }

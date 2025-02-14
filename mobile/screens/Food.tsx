@@ -1,10 +1,12 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-const MovieListScreen = () => {
+const FoodScreen = () => {
   return (
-    <View style={styles.container}></View>
+    <View style={styles.container}>
+      <Text style={styles.text}>food</Text>
+    </View>
   )
 }
 
@@ -15,6 +17,11 @@ const styles = StyleSheet.create({
     paddingTop: 70,
     paddingHorizontal: 20,
   },
+  text: {
+    flex: 1,
+    color:"white"
+  },
+
 
 });
-export default MovieListScreen
+export default FoodScreen

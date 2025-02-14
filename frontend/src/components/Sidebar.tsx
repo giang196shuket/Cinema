@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { useState } from "react";
 
 export const metadata: Metadata = {
@@ -10,14 +11,14 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
    const [asideOpen, setAsideOpen] = useState(true);
    const [profileOpen, setProfileOpen] = useState(false);
    return (
-      <main className="min-h-screen w-full bg-white-100" x-data="layout">
-         <header className="flex w-full items-center justify-between border-b-2 border-slate-100  bg-[#1D232C] p-2">
+      <main className="min-h-screen w-full bg-[#1D232C]" x-data="layout">
+         <header className="flex w-full items-center justify-between border-b-2 border-slate-100 p-2">
             <div className="flex items-center space-x-2 ml-4">
-               <button type="button" className="text-3xl " onClick={() => setAsideOpen(!asideOpen)}>
+               {/* <button type="button" className="text-3xl " onClick={() => setAsideOpen(!asideOpen)}>
                   <img   src={"/static/images/menu.png"} alt="" className="w-8"/>
-               </button>
-                  {/* <img src={"https://static.vecteezy.com/system/resources/previews/005/188/413/non_2x/cinema-logo-template-isolated-on-white-background-vector.jpg"}  className="w-12"/> */}
-               {/* <div className="text-white">Logo</div> */}
+               </button> */}
+                  {/* <img src={"https://static.vecteezy.com/system/resources/previews/005/188/413/non_2x/cinema-logo-template-isolated-on-white-background-vector.jpg"}  className="w-18 h-16"/> */}
+               {/* <div className="text-white text-[#72BE43] font-bold text-xl">Logo</div> */}
             </div>
 
             <div>
@@ -31,18 +32,18 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                      <div className="font-medium">Admin</div>
                   </div>
 
-                  <div className="flex flex-col space-y-3 p-2">
+                  <div className="flex flex-col space-y-3 p-2 pl-4">
                      <a href="#" className="transition hover:text-black">
-                        My Profile
+                        Cá nhân
                      </a>
                   </div>
 
-                  <div className="p-2">
+                  <div className="p-2 pl-4">
                      <button className="flex items-center space-x-2 transition hover:text-black">
-                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        {/* <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                        </svg>
-                        <div>Log Out</div>
+                        </svg> */}
+                        <div>Đăng xuất</div>
                      </button>
                   </div>
                </div>
@@ -50,41 +51,41 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
          </header>
 
          <div className="flex">
-            <aside className="flex w-72 flex-col space-y-2  bg-[#1D232C] text-white p-2" style={{ height: "100vh", display: asideOpen ? "block" : "none", transition:"2s" }}>
-               <a href="#" className="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-black">
+            <aside className="flex w-72 flex-col space-y-2  bg-[#1D232C] text-white font-semibold p-2" style={{ height: "100vh", display: asideOpen ? "block" : "none", transition:"2s" }}>
+               <Link  href="/" className="flex items-center space-x-1 rounded-md px-2 py-3  hover:bg-[#72BE43] ">
                   <span className="text-2xl">
                      <i className="bx bx-home"></i>
                   </span>
                   <span>Dashboard</span>
-               </a>
+               </Link>
 
-               <a href="#" className="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-black">
+               <Link  href="/movie" className="flex items-center space-x-1 rounded-md px-2 py-3  hover:bg-[#72BE43] ">
                   <span className="text-2xl">
                      <i className="bx bx-cart"></i>
                   </span>
                   <span>Danh sách phim</span>
-               </a>
+               </Link>
 
-               <a href="#" className="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-black">
+               <Link  href="/theater" className="flex items-center space-x-1 rounded-md px-2 py-3  hover:bg-[#72BE43] ">
                   <span className="text-2xl">
                      <i className="bx bx-shopping-bag"></i>
                   </span>
                   <span>Danh sách rạp</span>
-               </a>
+               </Link>
 
-               <a href="#" className="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-black">
+               <Link  href="/food" className="flex items-center space-x-1 rounded-md px-2 py-3  hover:bg-[#72BE43] ">
                   <span className="text-2xl">
                      <i className="bx bx-heart"></i>
                   </span>
                   <span>Danh sách thực phẩm</span>
-               </a>
+               </Link>
 
-               <a href="#" className="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-black">
+               <Link  href="#" className="flex items-center space-x-1 rounded-md px-2 py-3  hover:bg-[#72BE43] ">
                   <span className="text-2xl">
                      <i className="bx bx-user"></i>
                   </span>
                   <span>Danh sách đặt vé</span>
-               </a>
+               </Link>
             </aside>
 
             <div className="w-full bg-slate-100  p-8">

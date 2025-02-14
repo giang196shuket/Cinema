@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MovieModule } from './modules/movide.module';
 import { CategoryModule } from './modules/category.module';
 import { TheaterModule } from './modules/theater.module';
+import { FoodModule } from './modules/food.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -22,7 +23,8 @@ import { TheaterModule } from './modules/theater.module';
     }),
     MovieModule,
     CategoryModule,
-    TheaterModule
+    TheaterModule,
+    FoodModule
   ],
   controllers: [AppController],
   providers: [AppService],

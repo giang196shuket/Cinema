@@ -32,7 +32,7 @@ export class CategoryController {
   }
 
   @Delete(':id')
-  deleteUser(@Param('id') id: number) {
+  delete(@Param('id') id: number) {
     return this.categoryService.delete(id);
   }
 }

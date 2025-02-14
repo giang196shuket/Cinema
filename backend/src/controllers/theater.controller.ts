@@ -38,7 +38,7 @@ export class TheaterController {
   }
 
   @Delete(':id')
-  deleteUser(@Param('id') id: number) {
+  delete(@Param('id') id: number) {
     return this.theaterService.delete(id);
   }
 }

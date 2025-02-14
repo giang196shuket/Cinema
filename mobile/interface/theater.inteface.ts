@@ -3,7 +3,7 @@ export interface ITheater {
     theaterName: string;
     theaterAddress: string;
     theaterImage: string;
-    theaterActive: string;
+    theaterActive: boolean;
  }
  
  
